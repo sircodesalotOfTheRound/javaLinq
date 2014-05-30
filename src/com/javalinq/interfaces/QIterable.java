@@ -1,6 +1,7 @@
 package com.javalinq.interfaces;
 
 import com.javalinq.exceptions.QueryException;
+import com.javalinq.implementations.QList;
 import com.javalinq.iterators.DistinctIterable;
 import com.javalinq.iterators.DistinctIterableOnProperty;
 import com.javalinq.iterators.MapIterable;
@@ -95,6 +96,19 @@ public interface QIterable<T> extends Iterable<T> {
 
     default public <U> Partition<U, T> parition(Function<T, U> onProperty) {
         return new Partition<>(this, onProperty);
+    }
+
+
+    default public <U> QIterable<U> flatten(Function<T, QIterable<U>> onProperty) {
+        QList<U> resultSet = new QList<>();
+
+        for (T item : this) {
+            for (U subSetItem : onProperty.apply(item)) {
+                resultSet.add(subSetItem);
+            }
+        }
+
+        return resultSet;
     }
 
 }

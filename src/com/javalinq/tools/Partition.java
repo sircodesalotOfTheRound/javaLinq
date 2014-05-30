@@ -34,6 +34,10 @@ public class Partition<U, T> implements QIterable<QIterable<T>> {
         return newListForKey;
     }
 
+    public QIterable<T> flatten() {
+        return this.flatten(entry -> entry);
+    }
+
     public T containsKey(U key) { return this.containsKey(key); }
     public QIterable<T> get(U key) { return this.map.get(key); }
 

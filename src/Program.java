@@ -19,13 +19,11 @@ public class Program {
         list.add("Six");
         list.add("Five");
 
-        Partition<Class, Object> parition = list.parition(item -> item.getClass());
 
-        for (QIterable<Object> set : parition) {
-            System.out.println(set.getClass());
-            for (Object item : set) {
-                System.out.println("    " + item);
-            }
+        Partition<Class, Object> partition = list.parition(item -> item.getClass());
+
+        for (Object item : partition.flatten()) {
+            System.out.println(item);
         }
 
     }
