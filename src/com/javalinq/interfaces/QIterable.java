@@ -172,6 +172,22 @@ public interface QIterable<T> extends Iterable<T> {
         return subSet;
     }
 
+    default public QIterable<T> concat(Iterable<T> rhs) {
+        QList<T> allItems = new QList<>();
+        for (T item : this) allItems.add(item);
+        for (T item : rhs) allItems.add(item);
+
+        return allItems;
+    }
+
+    default public QIterable<T> unionDistinct(Iterable<T> rhs) {
+        QSet<T> allItems = new QSet<>();
+        for (T item : this) allItems.add(item);
+        for (T item : rhs) allItems.add(item);
+
+        return allItems;
+    }
+
     default public QIterable<T> intersect(QIterable<T> rSet) {
         // Move the rset into a set (if it isn't one already).
         QSet<T> rhs;

@@ -25,10 +25,8 @@ public class Program {
         rhs.add("One");
         rhs.add("Three");
 
-        for (Object item : list.sort(x -> x))
+        for (Object item : list.unionDistinct(rhs))
             System.out.println(item);
-
-        System.out.println(list.count(item -> item.length() > 3));
     }
 
 }
