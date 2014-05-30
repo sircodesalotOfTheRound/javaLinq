@@ -16,6 +16,10 @@ public class QList<T> implements QIterable<T> {
     public QList() {
     }
 
+    public QList(T[] items) {
+        for (T item : items) this.add(item);
+    }
+
     public QList(Iterable<T> items) {
         for (T item : items) this.add(item);
     }
@@ -27,6 +31,28 @@ public class QList<T> implements QIterable<T> {
 
     public void add(T item) {
         this.list.add(item);
+    }
+
+    public void add(Iterable<T> items) {
+        for (T item : items) this.add(item);
+    }
+
+    @Override
+    public T get(int index) {
+        return this.list.get(index);
+    }
+
+    @Override
+    public <U> U getAs(int index, Class<U> type) {
+        return (U) this.list.get(index);
+    }
+
+    public int indexOf(T item) {
+        return this.list.indexOf(item);
+    }
+
+    public void clear() {
+        this.list.clear();
     }
 
     public int size() {

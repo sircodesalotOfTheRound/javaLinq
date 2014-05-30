@@ -15,12 +15,20 @@ public class QSet<T> implements QIterable<T> {
     public QSet() {
     }
 
+    public QSet(T[] items) {
+        for (T item : items) this.add(item);
+    }
+
     public QSet(Iterable<T> iterable) {
         for (T item : iterable) this.add(item);
     }
 
     public boolean add(T item) {
         return this.set.add(item);
+    }
+
+    public void add(Iterable<T> items) {
+        for (T item : items) this.add(item);
     }
 
     public boolean contains(T item) {
@@ -31,6 +39,9 @@ public class QSet<T> implements QIterable<T> {
         return set.size();
     }
 
+    public void clear() {
+        this.set.clear();
+    }
 
     @Override
     public Iterator<T> iterator() {

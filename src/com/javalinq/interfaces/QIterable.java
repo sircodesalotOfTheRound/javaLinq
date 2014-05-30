@@ -15,6 +15,19 @@ import java.util.function.Predicate;
  * Created by sircodesalot on 14-5-30.
  */
 public interface QIterable<T> extends Iterable<T> {
+    default public T get(int index) {
+        Iterator<T> iterator = this.iterator();
+        for (int count = 0; count < index; count++) {
+            iterator.next();
+        }
+
+        return iterator.next();
+    }
+
+    default public <U> U getAs(int index, Class<U> type) {
+        return (U) this.get(index);
+    }
+
     default public QIterable<T> where(Predicate<T> predicate) {
         return new WhereIterable<T>(this, predicate);
     }
@@ -40,6 +53,10 @@ public interface QIterable<T> extends Iterable<T> {
         throw new QueryException("Sequence contains no items");
     }
 
+    default public <U> U firstAs(Class<U> type) {
+        return (U) this.first();
+    }
+
     default public T single() {
         Iterator<T> iterator = this.iterator();
         if (iterator.hasNext()) {
@@ -50,6 +67,10 @@ public interface QIterable<T> extends Iterable<T> {
         }
 
         throw new QueryException("Sequence contains no items");
+    }
+
+    default public <U> U singleAs(Class<U> type) {
+        return (U) this.single();
     }
 
     default public T last() {
@@ -63,6 +84,10 @@ public interface QIterable<T> extends Iterable<T> {
         }
 
         return returnValue;
+    }
+
+    default public <U> U lastas(Class<U> type) {
+        return (U) this.last();
     }
 
     default public T firstOrNull() {

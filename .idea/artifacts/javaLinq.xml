@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="javaLinq">
+    <output-path>$PROJECT_DIR$/out/artifacts/javaLinq</output-path>
+    <root id="archive" name="javaLinq.jar">
+      <element id="module-output" name="javaLinq" />
+    </root>
+  </artifact>
+</component>
