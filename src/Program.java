@@ -1,15 +1,14 @@
-import com.javalinq.QList;
-
-import java.util.List;
+import com.javalinq.implementations.QList;
 
 /**
  * Created by sircodesalot on 14-5-30.
  */
 public class Program {
     public static void main(String[] args) {
-        QList<String> list = new QList<>();
+        QList<Object> list = new QList<>();
 
         list.add("One");
+        list.add(1);
         list.add("Two");
         list.add("Three");
         list.add("Three");
@@ -18,8 +17,10 @@ public class Program {
         list.add("Six");
         list.add("Five");
 
-        for (String str : list.distinct(x -> x.length())) {
-            System.out.println(str);
+        for (Integer item : list.ofType(Integer.class)) {
+            System.out.println(item);
         }
+
+        System.out.println(list.ofType(Integer.class).single());
     }
 }

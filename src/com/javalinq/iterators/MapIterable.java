@@ -1,6 +1,6 @@
 package com.javalinq.iterators;
 
-import com.javalinq.QIterable;
+import com.javalinq.interfaces.QIterable;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -14,7 +14,7 @@ public class MapIterable<T, U> implements QIterable<U> {
 
     public MapIterable(Iterable<T> iterable, Function<T, U> projection) {
         this.iterable = iterable;
-       this.projection = projection;
+        this.projection = projection;
     }
 
     @Override

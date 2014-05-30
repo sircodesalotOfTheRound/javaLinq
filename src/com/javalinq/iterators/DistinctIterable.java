@@ -1,12 +1,11 @@
 package com.javalinq.iterators;
 
-import com.javalinq.QIterable;
+
+import com.javalinq.interfaces.QIterable;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Created by sircodesalot on 14-5-30.

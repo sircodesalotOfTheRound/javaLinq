@@ -1,4 +1,7 @@
-package com.javalinq;
+package com.javalinq.implementations;
+
+
+import com.javalinq.interfaces.QIterable;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,7 +14,9 @@ public class QList<T> implements QIterable<T> {
     List<T> list = new ArrayList<>();
 
     @Override
-    public Iterator<T> iterator() { return this.list.iterator(); }
+    public Iterator<T> iterator() {
+        return this.list.iterator();
+    }
 
     public void add(T item) {
         this.list.add(item);
