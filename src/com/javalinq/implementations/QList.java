@@ -21,4 +21,6 @@ public class QList<T> implements QIterable<T> {
     public void add(T item) {
         this.list.add(item);
     }
+
+    public int size() { return list.size(); }
 }

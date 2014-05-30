@@ -26,7 +26,7 @@ public class Program {
         rhs.add("One");
         rhs.add("Three");
 
-        for (Object item : list.except(rhs))
+        for (Object item : list.intersect(rhs))
             System.out.println(item);
     }
 }

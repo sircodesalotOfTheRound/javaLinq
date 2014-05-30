@@ -115,15 +115,15 @@ public interface QIterable<T> extends Iterable<T> {
     default public boolean any(Predicate<T> predicate) { return this.where(predicate).any(); }
     default public boolean all(Predicate<T> predicate) { return !this.where(item -> !predicate.test(item)).any(); }
 
-    default public QIterable<T> except(Iterable<T> items) {
-        // First build the set of items to except.
+    default public QIterable<T> except(Iterable<T> rSet) {
+        // First build the set of rSet to except.
         // Items may already be a set, so just use that if available.
         QSet<T> exceptItems;
-        if (items instanceof QSet)
-            exceptItems = (QSet<T>) items;
+        if (rSet instanceof QSet)
+            exceptItems = (QSet<T>) rSet;
         else {
             exceptItems = new QSet<>();
-            for (T item : items) exceptItems.add(item);
+            for (T item : rSet) exceptItems.add(item);
         }
 
         QList<T> subSet = new QList<>();
@@ -134,5 +134,26 @@ public interface QIterable<T> extends Iterable<T> {
         }
 
         return subSet;
+    }
+
+    default public QIterable<T> intersect(QIterable<T> rSet) {
+        // Move the rset into a set (if it isn't one already).
+        QSet<T> rhs;
+        if (rSet instanceof QSet) rhs = (QSet<T>) rSet;
+        else {
+            rhs = new QSet<>();
+            for (T item : this) {
+                rhs.add(item);
+            }
+        }
+
+        // For each item in this set, if it's in the rset,
+        // add it to the result set.
+        QList<T> resultSet = new QList<>();
+        for (T item : this) {
+            if (rhs.contains(item)) resultSet.add(item);
+        }
+
+        return resultSet;
     }
 }

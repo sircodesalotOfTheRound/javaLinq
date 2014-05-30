@@ -22,6 +22,8 @@ public class QSet<T> implements QIterable<T> {
     }
     public boolean contains(T item) { return this.set.contains(item); }
 
+    public int size() { return set.size(); }
+
     @Override
     public Iterator<T> iterator() { return this.set.iterator(); }
 }
