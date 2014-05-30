@@ -20,6 +20,7 @@ public class QSet<T> implements QIterable<T> {
     public boolean add(T item) {
         return this.set.add(item);
     }
+    public boolean contains(T item) { return this.set.contains(item); }
 
     @Override
     public Iterator<T> iterator() { return this.set.iterator(); }

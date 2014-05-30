@@ -2,6 +2,7 @@ package com.javalinq.interfaces;
 
 import com.javalinq.exceptions.QueryException;
 import com.javalinq.implementations.QList;
+import com.javalinq.implementations.QSet;
 import com.javalinq.iterators.DistinctIterable;
 import com.javalinq.iterators.DistinctIterableOnProperty;
 import com.javalinq.iterators.MapIterable;
@@ -98,7 +99,6 @@ public interface QIterable<T> extends Iterable<T> {
         return new Partition<>(this, onProperty);
     }
 
-
     default public <U> QIterable<U> flatten(Function<T, QIterable<U>> onProperty) {
         QList<U> resultSet = new QList<>();
 
@@ -111,4 +111,28 @@ public interface QIterable<T> extends Iterable<T> {
         return resultSet;
     }
 
+    default public boolean any() { return this.iterator().hasNext(); }
+    default public boolean any(Predicate<T> predicate) { return this.where(predicate).any(); }
+    default public boolean all(Predicate<T> predicate) { return !this.where(item -> !predicate.test(item)).any(); }
+
+    default public QIterable<T> except(Iterable<T> items) {
+        // First build the set of items to except.
+        // Items may already be a set, so just use that if available.
+        QSet<T> exceptItems;
+        if (items instanceof QSet)
+            exceptItems = (QSet<T>) items;
+        else {
+            exceptItems = new QSet<>();
+            for (T item : items) exceptItems.add(item);
+        }
+
+        QList<T> subSet = new QList<>();
+        for (T item : this) {
+           if (!exceptItems.contains(item)) {
+                subSet.add(item);
+           }
+        }
+
+        return subSet;
+    }
 }

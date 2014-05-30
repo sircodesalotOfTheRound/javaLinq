@@ -1,6 +1,9 @@
 import com.javalinq.implementations.QList;
+import com.javalinq.implementations.QSet;
 import com.javalinq.interfaces.QIterable;
 import com.javalinq.tools.Partition;
+
+import java.util.Objects;
 
 /**
  * Created by sircodesalot on 14-5-30.
@@ -8,6 +11,7 @@ import com.javalinq.tools.Partition;
 public class Program {
     public static void main(String[] args) {
         QList<Object> list = new QList<>();
+        QSet<Object> rhs = new QSet<>();
 
         list.add("One");
         list.add(1);
@@ -19,12 +23,10 @@ public class Program {
         list.add("Six");
         list.add("Five");
 
+        rhs.add("One");
+        rhs.add("Three");
 
-        Partition<Class, Object> partition = list.parition(item -> item.getClass());
-
-        for (Object item : partition.flatten()) {
+        for (Object item : list.except(rhs))
             System.out.println(item);
-        }
-
     }
 }
