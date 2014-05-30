@@ -12,11 +12,14 @@ public class Program {
         list.add("One");
         list.add("Two");
         list.add("Three");
+        list.add("Three");
+        list.add("Three");
         list.add("Four");
+        list.add("Six");
         list.add("Five");
 
-        for (Integer length : list.map(str -> str.length())) {
-            System.out.println(length);
+        for (String str : list.distinct(x -> x.length())) {
+            System.out.println(str);
         }
     }
 }
