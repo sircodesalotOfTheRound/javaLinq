@@ -9,7 +9,10 @@ import com.javalinq.iterators.MapIterable;
 import com.javalinq.iterators.WhereIterable;
 import com.javalinq.tools.Partition;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -156,4 +159,27 @@ public interface QIterable<T> extends Iterable<T> {
 
         return resultSet;
     }
+
+    default public <U extends Comparable> QIterable<T> sort(Function<T, U> onProperty) {
+        List<T> items = new ArrayList<T>();
+        for (T item : this) items.add(item);
+
+        items.sort(new Comparator<T>() {
+            @Override
+            public int compare(T lhs, T rhs) {
+                U lProperty = onProperty.apply(lhs);
+                U rProperty = onProperty.apply(rhs);
+
+                return lProperty.compareTo(rProperty);
+            }
+        });
+
+        return new QIterable<T>() {
+            @Override
+            public Iterator<T> iterator() {
+                return items.iterator();
+            }
+        };
+    }
+
 }

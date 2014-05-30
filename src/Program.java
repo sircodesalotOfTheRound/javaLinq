@@ -10,11 +10,10 @@ import java.util.Objects;
  */
 public class Program {
     public static void main(String[] args) {
-        QList<Object> list = new QList<>();
-        QSet<Object> rhs = new QSet<>();
+        QList<String> list = new QList<>();
+        QSet<String> rhs = new QSet<>();
 
         list.add("One");
-        list.add(1);
         list.add("Two");
         list.add("Three");
         list.add("Three");
@@ -26,7 +25,7 @@ public class Program {
         rhs.add("One");
         rhs.add("Three");
 
-        for (Object item : list.intersect(rhs))
+        for (Object item : list.sort(x -> x))
             System.out.println(item);
     }
 }

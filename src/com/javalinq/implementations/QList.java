@@ -13,6 +13,11 @@ import java.util.List;
 public class QList<T> implements QIterable<T> {
     List<T> list = new ArrayList<>();
 
+    public QList() { }
+    public QList(Iterable<T> items) {
+        for (T item : items) this.add(item);
+    }
+
     @Override
     public Iterator<T> iterator() {
         return this.list.iterator();
