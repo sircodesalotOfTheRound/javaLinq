@@ -1,6 +1,7 @@
 package com.javalinq.iterators;
 
 
+import com.javalinq.implementations.QSet;
 import com.javalinq.interfaces.QIterable;
 
 import java.util.HashSet;
@@ -20,7 +21,7 @@ public class DistinctIterable<T> implements QIterable<T> {
     @Override
     public Iterator<T> iterator() {
         final Iterator<T> iterator = this.iterable.iterator();
-        Set<T> seenItems = new HashSet<>();
+        QSet<T> seenItems = new QSet<>();
 
         return new Iterator<T>() {
             private T nextItem;

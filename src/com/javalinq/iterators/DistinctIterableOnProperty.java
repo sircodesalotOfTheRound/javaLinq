@@ -1,5 +1,6 @@
 package com.javalinq.iterators;
 
+import com.javalinq.implementations.QSet;
 import com.javalinq.interfaces.QIterable;
 
 import java.util.HashSet;
@@ -24,7 +25,7 @@ public class DistinctIterableOnProperty<T, U> implements QIterable<T> {
     }
 
     private class DistinctIteratorOnProperty implements Iterator<T> {
-        private final Set<U> seenItems = new HashSet<>();
+        private final QSet<U> seenItems = new QSet<>();
         private final Iterator<T> iterator;
         private final Function<T, U> onProperty;
         private T nextItem;

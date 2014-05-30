@@ -92,5 +92,4 @@ public interface QIterable<T> extends Iterable<T> {
         return this.where(item -> type.isAssignableFrom(item.getClass())).cast(type);
     }
 
-
 }
