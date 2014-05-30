@@ -15,8 +15,8 @@ public class Program {
         list.add("Four");
         list.add("Five");
 
-        for (String item : list.where(str -> str.length() == 3)) {
-            System.out.println(item);
+        for (Integer length : list.map(str -> str.length())) {
+            System.out.println(length);
         }
     }
 }

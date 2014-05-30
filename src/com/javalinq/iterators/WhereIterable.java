@@ -1,4 +1,6 @@
-package com.javalinq;
+package com.javalinq.iterators;
+
+import com.javalinq.QIterable;
 
 import java.util.Iterator;
 import java.util.function.Predicate;
