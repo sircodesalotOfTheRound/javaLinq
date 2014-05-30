@@ -9,9 +9,13 @@ public class Program {
     public static void main(String[] args) {
         QList<String> list = new QList<>();
 
-        list.add("Something");
+        list.add("One");
+        list.add("Two");
+        list.add("Three");
+        list.add("Four");
+        list.add("Five");
 
-        for (String item : list) {
+        for (String item : list.where(str -> str.length() == 3)) {
             System.out.println(item);
         }
     }
