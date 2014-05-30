@@ -55,6 +55,19 @@ public interface QIterable<T> extends Iterable<T> {
         throw new QueryException("Sequence contains no items");
     }
 
+    default public T last() {
+        Iterator<T> iterator = this.iterator();
+        if (!iterator.hasNext())
+            throw new QueryException("Sequence contains no items");
+
+        T returnValue = null;
+        while (iterator.hasNext()) {
+            returnValue = iterator.next();
+        }
+
+        return returnValue;
+    }
+
     default public T firstOrNull() {
         Iterator<T> iterator = this.iterator();
         if (iterator.hasNext()) return iterator.next();
@@ -74,6 +87,17 @@ public interface QIterable<T> extends Iterable<T> {
         return null;
     }
 
+    default public T lastOrNull() {
+        Iterator<T> iterator = this.iterator();
+
+        T returnValue = null;
+        while (iterator.hasNext()) {
+            returnValue = iterator.next();
+        }
+
+        return returnValue;
+    }
+
     default public T first(Predicate<T> predicate) {
         return this.where(predicate).first();
     }
@@ -82,12 +106,20 @@ public interface QIterable<T> extends Iterable<T> {
         return this.where(predicate).single();
     }
 
+    default public T last(Predicate<T> predicate) {
+        return this.where(predicate).last();
+    }
+
     default public T firstOrNull(Predicate<T> predicate) {
         return this.where(predicate).firstOrNull();
     }
 
     default public T singleOrNull(Predicate<T> predicate) {
         return this.where(predicate).singleOrNull();
+    }
+
+    default public T lastOrNull(Predicate<T> predicate) {
+        return this.where(predicate).lastOrNull();
     }
 
     default public <U> QIterable<U> cast(Class<U> toType) {
