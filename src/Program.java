@@ -1,4 +1,6 @@
 import com.javalinq.implementations.QList;
+import com.javalinq.interfaces.QIterable;
+import com.javalinq.tools.Partition;
 
 /**
  * Created by sircodesalot on 14-5-30.
@@ -17,10 +19,14 @@ public class Program {
         list.add("Six");
         list.add("Five");
 
-        for (Integer item : list.ofType(Integer.class)) {
-            System.out.println(item);
+        Partition<Class, Object> parition = list.parition(item -> item.getClass());
+
+        for (QIterable<Object> set : parition) {
+            System.out.println(set.getClass());
+            for (Object item : set) {
+                System.out.println("    " + item);
+            }
         }
 
-        System.out.println(list.ofType(Integer.class).single());
     }
 }

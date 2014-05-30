@@ -5,6 +5,7 @@ import com.javalinq.iterators.DistinctIterable;
 import com.javalinq.iterators.DistinctIterableOnProperty;
 import com.javalinq.iterators.MapIterable;
 import com.javalinq.iterators.WhereIterable;
+import com.javalinq.tools.Partition;
 
 import java.util.Iterator;
 import java.util.function.Function;
@@ -90,6 +91,10 @@ public interface QIterable<T> extends Iterable<T> {
 
     default public <U> QIterable<U> ofType(Class<U> type) {
         return this.where(item -> type.isAssignableFrom(item.getClass())).cast(type);
+    }
+
+    default public <U> Partition<U, T> parition(Function<T, U> onProperty) {
+        return new Partition<>(this, onProperty);
     }
 
 }
