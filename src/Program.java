@@ -25,8 +25,9 @@ public class Program {
         rhs.add("One");
         rhs.add("Three");
 
-        for (Object item : list.unionDistinct(rhs))
+        for (Object item : list.reverse()) {
             System.out.println(item);
+        }
     }
 
 }

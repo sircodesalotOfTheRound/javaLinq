@@ -9,11 +9,7 @@ import com.javalinq.iterators.MapIterable;
 import com.javalinq.iterators.WhereIterable;
 import com.javalinq.tools.Partition;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -151,6 +147,65 @@ public interface QIterable<T> extends Iterable<T> {
     default public boolean any(Predicate<T> predicate) { return this.where(predicate).any(); }
     default public boolean all(Predicate<T> predicate) { return !this.where(item -> !predicate.test(item)).any(); }
 
+    default public double sum(Function<T, Double> onProperty) {
+        double sum = 0;
+        for (T item : this) sum += onProperty.apply(item);
+        return sum;
+    }
+
+    default public double avg(Function<T, Double> onProperty) {
+        double sum = 0;
+        long count = 0;
+
+        for (T item : this) {
+            sum += onProperty.apply(item);
+            count++;
+        }
+
+        return sum / (double)count;
+    }
+
+
+    default public <U extends Comparable> T max(Function<T, U> onProperty) {
+        T maxItem = null;
+
+        for (T item : this) {
+            if (maxItem == null) {
+                maxItem = item;
+                continue;
+            }
+
+            U lhs = onProperty.apply(item);
+            U rhs = onProperty.apply(maxItem);
+
+            if (lhs.compareTo(rhs) > 0) {
+                maxItem = item;
+            }
+        }
+
+        return maxItem;
+    }
+
+    default public <U extends Comparable> T min(Function<T, U> onProperty) {
+        T maxItem = null;
+
+        for (T item : this) {
+            if (maxItem == null) {
+                maxItem = item;
+                continue;
+            }
+
+            U lhs = onProperty.apply(item);
+            U rhs = onProperty.apply(maxItem);
+
+            if (lhs.compareTo(rhs) < 0) {
+                maxItem = item;
+            }
+        }
+
+        return maxItem;
+    }
+
     default public QIterable<T> except(Iterable<T> rSet) {
         // First build the set of rSet to except.
         // Items may already be a set, so just use that if available.
@@ -235,6 +290,32 @@ public interface QIterable<T> extends Iterable<T> {
         int count = 0;
         for (T item : this) count++;
         return count;
+    }
+
+    default public QIterable<T> reverse() {
+        Stack<T> stack = new Stack<>();
+        for (T item : this) stack.push(item);
+
+        // Create a stack iterator.
+        final Iterator<T> stackIterator = new Iterator<T>() {
+            @Override
+            public boolean hasNext() {
+                return !stack.empty();
+            }
+
+            @Override
+            public T next() {
+                return stack.pop();
+            }
+        };
+
+        // Return a query iterable using the stack
+        return new QIterable<T>() {
+            @Override
+            public Iterator<T> iterator() {
+                return stackIterator;
+            }
+        };
     }
 
     default public long count(Predicate<T> predicate) {
