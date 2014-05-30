@@ -1,9 +1,5 @@
 import com.javalinq.implementations.QList;
 import com.javalinq.implementations.QSet;
-import com.javalinq.interfaces.QIterable;
-import com.javalinq.tools.Partition;
-
-import java.util.Objects;
 
 /**
  * Created by sircodesalot on 14-5-30.
@@ -25,7 +21,7 @@ public class Program {
         rhs.add("One");
         rhs.add("Three");
 
-        for (Object item : list.reverse()) {
+        for (Object item : list.distinct()) {
             System.out.println(item);
         }
     }

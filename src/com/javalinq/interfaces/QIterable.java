@@ -3,8 +3,6 @@ package com.javalinq.interfaces;
 import com.javalinq.exceptions.QueryException;
 import com.javalinq.implementations.QList;
 import com.javalinq.implementations.QSet;
-import com.javalinq.iterators.DistinctIterable;
-import com.javalinq.iterators.DistinctIterableOnProperty;
 import com.javalinq.iterators.MapIterable;
 import com.javalinq.iterators.WhereIterable;
 import com.javalinq.tools.Partition;
@@ -26,11 +24,13 @@ public interface QIterable<T> extends Iterable<T> {
     }
 
     default public QIterable<T> distinct() {
-        return new DistinctIterable<>(this);
+        QSet<T> seenItems = new QSet<>();
+        return this.where(item -> seenItems.add(item));
     }
 
     default public <U> QIterable<T> distinct(Function<T, U> onProperty) {
-        return new DistinctIterableOnProperty<>(this, onProperty);
+        QSet<U> seenItems = new QSet<>();
+        return this.where(item -> seenItems.add(onProperty.apply(item)));
     }
 
     default public T first() {

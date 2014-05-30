@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 public class WhereIterable<T> implements QIterable<T> {
     private final QIterable<T> iterable;
     private final Predicate<T> predicate;
+
     public WhereIterable(QIterable<T> iterable, Predicate<T> predicate) {
         this.iterable = iterable;
         this.predicate = predicate;

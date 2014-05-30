@@ -24,9 +24,9 @@ public class Partition<U, T> implements QIterable<QIterable<T>> {
     }
 
     public QList<T> getListForKey(U key) {
-       if (map.containsKey(key)) {
-           return map.get(key);
-       }
+        if (map.containsKey(key)) {
+            return map.get(key);
+        }
 
         QList<T> newListForKey = new QList<>();
         map.put(key, newListForKey);
@@ -38,8 +38,13 @@ public class Partition<U, T> implements QIterable<QIterable<T>> {
         return this.flatten(entry -> entry);
     }
 
-    public T containsKey(U key) { return this.containsKey(key); }
-    public QIterable<T> get(U key) { return this.map.get(key); }
+    public T containsKey(U key) {
+        return this.containsKey(key);
+    }
+
+    public QIterable<T> get(U key) {
+        return this.map.get(key);
+    }
 
     @Override
     public Iterator<QIterable<T>> iterator() {

@@ -13,7 +13,9 @@ import java.util.List;
 public class QList<T> implements QIterable<T> {
     List<T> list = new ArrayList<>();
 
-    public QList() { }
+    public QList() {
+    }
+
     public QList(Iterable<T> items) {
         for (T item : items) this.add(item);
     }
@@ -27,8 +29,12 @@ public class QList<T> implements QIterable<T> {
         this.list.add(item);
     }
 
-    public int size() { return list.size(); }
+    public int size() {
+        return list.size();
+    }
 
     @Override
-    public long count() { return list.size(); }
+    public long count() {
+        return list.size();
+    }
 }

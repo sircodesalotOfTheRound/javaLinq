@@ -12,7 +12,9 @@ import java.util.Set;
 public class QSet<T> implements QIterable<T> {
     public Set<T> set = new HashSet<>();
 
-    public QSet() { }
+    public QSet() {
+    }
+
     public QSet(Iterable<T> iterable) {
         for (T item : iterable) this.add(item);
     }
@@ -20,14 +22,23 @@ public class QSet<T> implements QIterable<T> {
     public boolean add(T item) {
         return this.set.add(item);
     }
-    public boolean contains(T item) { return this.set.contains(item); }
 
-    public int size() { return set.size(); }
+    public boolean contains(T item) {
+        return this.set.contains(item);
+    }
+
+    public int size() {
+        return set.size();
+    }
 
 
     @Override
-    public Iterator<T> iterator() { return this.set.iterator(); }
+    public Iterator<T> iterator() {
+        return this.set.iterator();
+    }
 
     @Override
-    public long count() { return set.size(); }
+    public long count() {
+        return set.size();
+    }
 }
