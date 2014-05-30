@@ -24,6 +24,10 @@ public class QSet<T> implements QIterable<T> {
 
     public int size() { return set.size(); }
 
+
     @Override
     public Iterator<T> iterator() { return this.set.iterator(); }
+
+    @Override
+    public long count() { return set.size(); }
 }

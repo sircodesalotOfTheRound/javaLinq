@@ -28,4 +28,7 @@ public class QList<T> implements QIterable<T> {
     }
 
     public int size() { return list.size(); }
+
+    @Override
+    public long count() { return list.size(); }
 }

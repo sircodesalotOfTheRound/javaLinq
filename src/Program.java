@@ -28,7 +28,7 @@ public class Program {
         for (Object item : list.sort(x -> x))
             System.out.println(item);
 
-        System.out.println(list.last());
+        System.out.println(list.count(item -> item.length() > 3));
     }
 
 }

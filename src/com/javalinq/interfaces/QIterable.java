@@ -9,6 +9,7 @@ import com.javalinq.iterators.MapIterable;
 import com.javalinq.iterators.WhereIterable;
 import com.javalinq.tools.Partition;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Iterator;
@@ -212,6 +213,24 @@ public interface QIterable<T> extends Iterable<T> {
                 return items.iterator();
             }
         };
+    }
+
+    default public long count() {
+        int count = 0;
+        for (T item : this) count++;
+        return count;
+    }
+
+    default public long count(Predicate<T> predicate) {
+        return this.where(predicate).count();
+    }
+
+    default public QList<T> toList() {
+        return new QList<>(this);
+    }
+
+    default public QSet<T> toSet() {
+        return new QSet<>(this);
     }
 
 }
