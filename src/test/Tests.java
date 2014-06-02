@@ -3,6 +3,7 @@ package test;
 import com.javalinq.implementations.QList;
 import com.javalinq.implementations.QSet;
 import com.javalinq.interfaces.QIterable;
+import com.javalinq.tools.Partition;
 import org.junit.Test;
 
 public class Tests {
@@ -64,6 +65,9 @@ public class Tests {
     public void ordered() {
         QList<Integer> list = new QList<Integer>(1, 0, 2, 9, 3, 8, 4, 7, 5, 6);
 
+        // Sort numbers based on the property '<self>'.
+        // We could use a different property, but in this instance
+        // we really just want to sort based on the number itself.
         QIterable<Integer> sortedNumbers = list.sort(number -> number);
 
         assert(sortedNumbers.get(0) == 0);
@@ -77,5 +81,49 @@ public class Tests {
         assert(sortedNumbers.get(8) == 8);
         assert(sortedNumbers.get(9) == 9);
     }
+
+    @Test
+    public void parition() {
+        QList<Integer> list = new QList<Integer>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+        // Partition the numbers into two groups, those less than 5 and those greater than 5.
+        Partition<Boolean, Integer> parition = list.parition(number -> number < 5);
+
+        // The items in the lower partition (for which number < 5 is 'true').
+        assert (parition.get(true).count() == 5);
+
+        assert (parition.get(true).get(0) == 0);
+        assert (parition.get(true).get(1) == 1);
+        assert (parition.get(true).get(2) == 2);
+        assert (parition.get(true).get(3) == 3);
+        assert (parition.get(true).get(4) == 4);
+
+        // The items in the upper partition (for which number < 5 is 'false').
+        assert (parition.get(false).count() == 5);
+
+        assert (parition.get(false).get(0) == 5);
+        assert (parition.get(false).get(1) == 6);
+        assert (parition.get(false).get(2) == 7);
+        assert (parition.get(false).get(3) == 8);
+        assert (parition.get(false).get(4) == 9);
+
+    }
+
+    @Test
+    public void flatten() {
+        QList<Integer> list = new QList<Integer>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+        // Partition the numbers into two groups: odds and evens.
+        Partition<Boolean, Integer> parition = list.parition(number -> number % 2 == 0);
+
+        // Undo the partition (flatten the set)
+        // Then sort to put them in order.
+        QIterable<Integer> flattened = parition.flatten().sort(number -> number);
+
+        for (int index = 0; index < 10; index++) {
+            assert (flattened.get(index) == index);
+        }
+    }
+
 
 }

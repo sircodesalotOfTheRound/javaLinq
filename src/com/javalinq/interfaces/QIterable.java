@@ -86,7 +86,7 @@ public interface QIterable<T> extends Iterable<T> {
         return returnValue;
     }
 
-    default public <U> U lastas(Class<U> type) {
+    default public <U> U lastAs(Class<U> type) {
         return (U) this.last();
     }
 
