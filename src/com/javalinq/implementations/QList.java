@@ -16,7 +16,7 @@ public class QList<T> implements QIterable<T> {
     public QList() {
     }
 
-    public QList(T[] items) {
+    public QList(T ... items) {
         for (T item : items) this.add(item);
     }
 
