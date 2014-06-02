@@ -7,6 +7,7 @@ Clean, freely extensible Java-8 Linq style collection implementation.
 
 Where filters the set of items based on a predicate:
 
+```Java
     public void where() {
         QList<String> list = new QList<String>("One", "Two", "Three", "Four", "Five");
 
@@ -17,6 +18,7 @@ Where filters the set of items based on a predicate:
         assert(lengthThreeStrings.contains("One"));
         assert(lengthThreeStrings.contains("Two"));
     }
+```
     
 ### Map
 
