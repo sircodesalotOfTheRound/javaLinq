@@ -15,7 +15,7 @@ public class QSet<T> implements QIterable<T> {
     public QSet() {
     }
 
-    public QSet(T[] items) {
+    public QSet(T ... items) {
         for (T item : items) this.add(item);
     }
 
