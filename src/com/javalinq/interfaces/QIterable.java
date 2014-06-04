@@ -274,7 +274,7 @@ public interface QIterable<T> extends Iterable<T> {
         if (rSet instanceof QSet) rhs = (QSet<T>) rSet;
         else {
             rhs = new QSet<>();
-            for (T item : this) {
+            for (T item : rSet) {
                 rhs.add(item);
             }
         }

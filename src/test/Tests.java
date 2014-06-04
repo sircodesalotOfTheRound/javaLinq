@@ -190,4 +190,44 @@ public class Tests {
             assert (item instanceof Derived);
         }
     }
+
+    @Test
+    public void setOperations() {
+        QIterable<Integer> lhs = new QList<Integer>(2, 3, 4);
+        QIterable<Integer> rhs = new QList<Integer>(4, 5, 6);
+
+        // Concat combines two sets including duplicates:
+        QIterable<Integer> concat = lhs.concat(rhs).sort(self -> self);
+
+        // UnionDistinct combines the distinct members of two sets
+        QIterable<Integer> union = lhs.unionDistinct(rhs).sort(self -> self);
+
+        // Intersect finds the intersection of two sets
+        QIterable<Integer> intersect = lhs.intersect(rhs).sort(self -> self);
+
+        // Except finds the difference between two sets
+        QIterable<Integer> exclusion = lhs.except(rhs).sort(self -> self);
+
+        assert (concat.count() == 6);
+        assert (concat.get(0) == 2);
+        assert (concat.get(1) == 3);
+        assert (concat.get(2) == 4);
+        assert (concat.get(3) == 4);
+        assert (concat.get(4) == 5);
+        assert (concat.get(5) == 6);
+
+        assert (union.count() == 5);
+        assert (union.get(0) == 2);
+        assert (union.get(1) == 3);
+        assert (union.get(2) == 4);
+        assert (union.get(3) == 5);
+        assert (union.get(4) == 6);
+
+        assert (intersect.count() == 1);
+        assert (intersect.get(0) == 4);
+
+        assert (exclusion.count() == 2);
+        assert (exclusion.get(0) == 2);
+        assert (exclusion.get(1) == 3);
+    }
 }
