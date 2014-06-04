@@ -352,7 +352,7 @@ public void changeContainer() {
 }
 ```
 
-You can also use `.partition()` to easily key value pairs of items.
+You can also use `.partition()` to easily create key-value pair mappings of a set.
 
 ```Java
 public void changeContainer() {
