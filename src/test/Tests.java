@@ -254,6 +254,28 @@ public class Tests {
     }
 
     @Test
+    public void changeContainer() {
+        QIterable<Object> numbers = new QList<Object>(0, "One", 2, "Three", 4, "Five", 6);
+
+        // Create a duplicate list, which is good for fast indexing.
+        QList<Object> list = numbers.toList();
+
+        assert (list.get(2).equals(2));
+
+        // Create a duplicate set, which is good for fast searching.
+        QSet<Object> set = numbers.toSet();
+
+        assert (set.contains("Three"));
+
+        // Use partition to create a key-value pair of items.
+        // Here we partition the set by class.
+        Partition<Class, Object> parition = numbers.parition(number -> number.getClass());
+
+        assert(parition.get(Integer.class).count() == 4);
+        assert(parition.get(String.class).count() == 3);
+    }
+
+    @Test
     public void createQIterable() {
         // To create a QIterable, simply implement the interface.
         QIterable<Integer> iterable = new QIterable<Integer>() {
@@ -279,6 +301,7 @@ public class Tests {
             }
         };
 
+        assert (iterable instanceof QIterable);
         assert (iterable.count() == 5);
         assert (iterable.get(0) == 0);
         assert (iterable.get(1) == 1);

@@ -332,6 +332,40 @@ public void anyAll() {
 }
 ```
 
+### ToList, ToSet
+
+Create a `QList<T>` (good for fast indexing) or `QSet<T>` (good for fast searching) from a raw `QIterable<T>`:
+
+```Java
+public void changeContainer() {
+    QIterable<String> numbers = new QList<String>("First", "Second", "Third", "Fourth");
+
+    // Create a duplicate list, which is good for fast indexing.
+    QList<String> list = numbers.toList();
+
+    assert (list.get(2).equals("Third"));
+
+    // Create a duplicate set, which is good for fast searching.
+    QSet<String> set = numbers.toSet();
+
+    assert (set.contains("Third"));
+}
+```
+
+You can also use `.partition()` to easily key value pairs of items.
+
+```Java
+public void changeContainer() {
+    // Use partition to create a key-value pair of items.
+    // Here we partition the set by class.
+    Partition<Class, Object> parition = numbers.parition(number -> number.getClass());
+
+    assert(parition.get(Integer.class).count() == 4);
+    assert(parition.get(String.class).count() == 3);
+}
+```
+
+
 ## Create Your Own Collection!
 
 To create a collection, simply implement the `QIterable<T>` interface, and it's member method `iterator':
@@ -374,6 +408,7 @@ public void createQIterable() {
         }
     };
    
+    assert (iterable instanceof QIterable);
     assert (iterable.count() == 5);
     assert (iterable.get(0) == 0);
     assert (iterable.get(1) == 1);
