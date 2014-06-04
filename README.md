@@ -332,7 +332,7 @@ public void anyAll() {
 }
 ```
 
-### ToList, ToSet
+### ToList, ToSet, Partition
 
 Create a `QList<T>` (good for fast indexing) or `QSet<T>` (good for fast searching) from a raw `QIterable<T>`:
 
