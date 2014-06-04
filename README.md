@@ -337,6 +337,18 @@ public void anyAll() {
 To create a collection, simply implement the `QIterable<T>` interface, and it's member method `iterator':
 
 ```Java
+class MyCollection<T> implements QIterable<T> {
+
+    @Override
+    public Iterator<T> iterator() {
+        return null;
+    }
+}
+```
+
+for example, we'll create a simple iterator that counts to 5 using an anonymous class.
+
+```Java
 public void createQIterable() {
     // To create a QIterable, simply implement the interface.
     QIterable<Integer> iterable = new QIterable<Integer>() {

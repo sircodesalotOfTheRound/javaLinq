@@ -317,6 +317,14 @@ public interface QIterable<T> extends Iterable<T> {
         return count;
     }
 
+    class MyCollection<T> implements QIterable<T> {
+
+        @Override
+        public Iterator<T> iterator() {
+            return null;
+        }
+    }
+
     default public QIterable<T> reverse() {
         // Return a query iterable using the stack
         return new QIterable<T>() {
