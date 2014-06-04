@@ -241,4 +241,13 @@ public class Tests {
         assert (reversed.get(3) == 2);
         assert (reversed.get(4) == 1);
     }
+
+    @Test
+    public void anyAll() {
+        QIterable<Integer> lhs = new QList<Integer>(1, 2, 3, 4, 5);
+
+        assert (lhs.any()); // At least one item
+        assert (lhs.any(number -> number > 2)); // At least one item greater than two
+        assert (!lhs.all(number -> number > 2)); // Not all items greater than two
+    }
 }

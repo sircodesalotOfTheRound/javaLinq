@@ -312,3 +312,19 @@ public void reverse() {
     assert (reversed.get(4) == 1);
 }
 ```
+
+### Any, All
+
+Determine whether there are any elements that fit a predicate description:
+
+```Java
+public void anyAll() {
+    QIterable<Integer> lhs = new QList<Integer>(1, 2, 3, 4, 5);
+
+    assert (lhs.any()); // At least one item
+    assert (lhs.any(number -> number > 2)); // At least one item greater than two
+    assert (!lhs.all(number -> number > 2)); // Not all items greater than two
+}
+```
+
+Coming soon: Async collections!
