@@ -124,7 +124,7 @@ public void ordered() {
 
 ### Partition
 
-Use partition to split a group of items based on a property:
+Use partition to split a collection into segments:
 
 ```Java
 public void parition() {
