@@ -368,7 +368,7 @@ public void changeContainer() {
 ```
 
 
-## Create Your Own Collection!
+## Create Your Own Collections with Ease!
 
 To create a collection, simply implement the `QIterable<T>` interface, and it's member method `iterator':
 
