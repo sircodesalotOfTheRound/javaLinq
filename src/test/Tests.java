@@ -6,6 +6,8 @@ import com.javalinq.interfaces.QIterable;
 import com.javalinq.tools.Partition;
 import org.junit.Test;
 
+import java.util.Iterator;
+
 public class Tests {
     @Test
     public void where() {
@@ -249,5 +251,39 @@ public class Tests {
         assert (lhs.any()); // At least one item
         assert (lhs.any(number -> number > 2)); // At least one item greater than two
         assert (!lhs.all(number -> number > 2)); // Not all items greater than two
+    }
+
+    @Test
+    public void createQIterable() {
+        // To create a QIterable, simply implement the interface.
+        QIterable<Integer> iterable = new QIterable<Integer>() {
+
+            // And it's single method 'iterator'.
+            @Override
+            public Iterator<Integer> iterator() {
+                return new Iterator<Integer>() {
+                    private int current = 0;
+
+                    @Override
+                    public boolean hasNext() {
+                        // Continue iterating so long as 'current' is less than 5.
+                        return current < 5;
+                    }
+
+                    @Override
+                    public Integer next() {
+                        // Increment.
+                        return current++;
+                    }
+                };
+            }
+        };
+
+        assert (iterable.count() == 5);
+        assert (iterable.get(0) == 0);
+        assert (iterable.get(1) == 1);
+        assert (iterable.get(2) == 2);
+        assert (iterable.get(3) == 3);
+        assert (iterable.get(4) == 4);
     }
 }

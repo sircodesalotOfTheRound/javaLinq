@@ -3,6 +3,11 @@ javaLinq
 
 Clean, freely extensible Java-8 Linq style collection implementation.
 
+## Available Operations
+
+The following operations are available right out of the box.
+
+
 ### Where
 
 Where filters the set of items based on a predicate:
@@ -327,4 +332,41 @@ public void anyAll() {
 }
 ```
 
-Coming soon: Async collections!
+## Create Your Own Collection!
+
+To create a collection, simply implement the `QIterable<T>` interface, and it's member method `iterator':
+
+```Java
+public void createQIterable() {
+    // To create a QIterable, simply implement the interface.
+    QIterable<Integer> iterable = new QIterable<Integer>() {
+        
+        // And it's single method 'iterator'.
+        @Override
+        public Iterator<Integer> iterator() {
+            return new Iterator<Integer>() {
+                private int current = 0;
+                
+                @Override
+                public boolean hasNext() {
+                    // Continue iterating so long as 'current' is less than 5.
+                    return current < 5;
+                }
+
+                @Override
+                public Integer next() {
+                    // Increment.
+                    return current++;
+                }
+            };
+        }
+    };
+   
+    assert (iterable.count() == 5);
+    assert (iterable.get(0) == 0);
+    assert (iterable.get(1) == 1);
+    assert (iterable.get(2) == 2);
+    assert (iterable.get(3) == 3);
+    assert (iterable.get(4) == 4);
+}
+```
