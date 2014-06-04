@@ -289,3 +289,26 @@ public void setOperations() {
 }
     
 ```
+
+### Reverse
+
+Reverse a set of items:
+
+```Java
+public void reverse() {
+    QIterable<Integer> lhs = new QList<Integer>(1, 2, 3, 4, 5);
+
+    // Reverse the set of items
+    QIterable<Integer> reversed = lhs.reverse();
+
+    for (Integer value : reversed) {
+        System.out.println(value);
+    }
+
+    assert (reversed.get(0) == 5);
+    assert (reversed.get(1) == 4);
+    assert (reversed.get(2) == 3);
+    assert (reversed.get(3) == 2);
+    assert (reversed.get(4) == 1);
+}
+```

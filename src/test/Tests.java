@@ -6,9 +6,6 @@ import com.javalinq.interfaces.QIterable;
 import com.javalinq.tools.Partition;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Tests {
     @Test
     public void where() {
@@ -229,5 +226,19 @@ public class Tests {
         assert (exclusion.count() == 2);
         assert (exclusion.get(0) == 2);
         assert (exclusion.get(1) == 3);
+    }
+
+    @Test
+    public void reverse() {
+        QIterable<Integer> lhs = new QList<Integer>(1, 2, 3, 4, 5);
+
+        // Reverse the set of items
+        QIterable<Integer> reversed = lhs.reverse();
+
+        assert (reversed.get(0) == 5);
+        assert (reversed.get(1) == 4);
+        assert (reversed.get(2) == 3);
+        assert (reversed.get(3) == 2);
+        assert (reversed.get(4) == 1);
     }
 }

@@ -268,7 +268,7 @@ public interface QIterable<T> extends Iterable<T> {
         return allItems;
     }
 
-    default public QIterable<T> intersect(QIterable<T> rSet) {
+    default public QIterable<T> intersect(Iterable<T> rSet) {
         // Move the rset into a set (if it isn't one already).
         QSet<T> rhs;
         if (rSet instanceof QSet) rhs = (QSet<T>) rSet;
@@ -318,27 +318,26 @@ public interface QIterable<T> extends Iterable<T> {
     }
 
     default public QIterable<T> reverse() {
-        Stack<T> stack = new Stack<>();
-        for (T item : this) stack.push(item);
-
-        // Create a stack iterator.
-        final Iterator<T> stackIterator = new Iterator<T>() {
-            @Override
-            public boolean hasNext() {
-                return !stack.empty();
-            }
-
-            @Override
-            public T next() {
-                return stack.pop();
-            }
-        };
-
         // Return a query iterable using the stack
         return new QIterable<T>() {
             @Override
             public Iterator<T> iterator() {
-                return stackIterator;
+                // Before constructing the iterator,
+                // Push all items onto the stack. Pop as we go.
+                Stack<T> stack = new Stack<>();
+                for (T item : QIterable.this) stack.push(item);
+
+                return new Iterator<T>() {
+                    @Override
+                    public boolean hasNext() {
+                        return !stack.empty();
+                    }
+
+                    @Override
+                    public T next() {
+                        return stack.pop();
+                    }
+                };
             }
         };
     }
