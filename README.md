@@ -53,6 +53,7 @@ public void testReduce() {
     QIterable<Integer> numbers = new QList<Integer>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
     // Use reduce to fold the entire collection into a value
+    // We insert the initial sum value (0), and then fold each item into the total.
     Integer total = numbers.reduce(0, (sum, next) -> sum + next);
 
     assert (total == 55);
