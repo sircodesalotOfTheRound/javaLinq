@@ -241,4 +241,5 @@ Cast items in a set to a an interface or class:
         for (Derived item : deriveds) {
             assert (item instanceof Derived);
         }
-    }```
+    }
+```

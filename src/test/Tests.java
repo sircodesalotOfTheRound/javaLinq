@@ -6,6 +6,9 @@ import com.javalinq.interfaces.QIterable;
 import com.javalinq.tools.Partition;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tests {
     @Test
     public void where() {
