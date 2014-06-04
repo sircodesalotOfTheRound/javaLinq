@@ -174,7 +174,7 @@ public void count() {
     assert (list.count() == 10);
     
     // Count the number of items with a predicate (here: odds)
-    assert (list.count(item -> item % 2 == 0) == 5);
+    assert (list.count(item -> item % 2 == 1) == 5);
 }
 ```    
 
