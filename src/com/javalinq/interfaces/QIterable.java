@@ -350,6 +350,14 @@ public interface QIterable<T> extends Iterable<T> {
         };
     }
 
+    default public <U> U reduce(U collector, Reducer<T, U> reducer) {
+        for (T item : this) {
+            collector = reducer.reduce(collector, item);
+        }
+
+        return collector;
+    }
+
     default public long count(Predicate<T> predicate) {
         return this.where(predicate).count();
     }

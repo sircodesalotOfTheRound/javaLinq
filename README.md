@@ -43,7 +43,22 @@ public void map() {
     assert(stringLengths.get(4) == 4);
 }
 ```
-    
+
+### Reduce
+
+Use reduce to fold all items in a collection into a final form:
+
+```Java
+public void testReduce() {
+    QIterable<Integer> numbers = new QList<Integer>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+    // Use reduce to fold the entire collection into a value
+    Integer total = numbers.reduce(0, (sum, next) -> sum + next);
+
+    assert (total == 55);
+}    
+```
+
 ### Distinct
 
 Distinct captures only those items in a set that are distinct:
