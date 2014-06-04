@@ -338,17 +338,17 @@ Create a `QList<T>` (good for fast indexing) or `QSet<T>` (good for fast searchi
 
 ```Java
 public void changeContainer() {
-    QIterable<String> numbers = new QList<String>("First", "Second", "Third", "Fourth");
+    QIterable<Object> numbers = new QList<Object>(0, "One", 2, "Three", 4, "Five", 6);
 
     // Create a duplicate list, which is good for fast indexing.
-    QList<String> list = numbers.toList();
+    QList<Object> list = numbers.toList();
 
-    assert (list.get(2).equals("Third"));
+    assert (list.get(2).equals(2));
 
     // Create a duplicate set, which is good for fast searching.
-    QSet<String> set = numbers.toSet();
+    QSet<Object> set = numbers.toSet();
 
-    assert (set.contains("Third"));
+    assert (set.contains("Three"));
 }
 ```
 
@@ -356,6 +356,8 @@ You can also use `.partition()` to easily create key-value pair mappings of a se
 
 ```Java
 public void changeContainer() {
+    QIterable<Object> numbers = new QList<Object>(0, "One", 2, "Three", 4, "Five", 6);
+    
     // Use partition to create a key-value pair of items.
     // Here we partition the set by class.
     Partition<Class, Object> parition = numbers.parition(number -> number.getClass());
