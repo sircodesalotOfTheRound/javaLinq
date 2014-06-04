@@ -126,4 +126,65 @@ public class Tests {
     }
 
 
+    @Test
+    public void count() {
+        QList<Integer> list = new QList<Integer>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+        assert (list.count() == 10);
+        assert (list.count(item -> item % 2 == 0) == 5);
+    }
+
+    @Test
+    public void sequence() {
+        QList<Integer> list = new QList<Integer>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+        // Find the first and last items
+        assert (list.first() == 0);
+        assert (list.last() == 9);
+
+        // Find items with predicate
+        assert (list.first(number -> number % 2 == 0) == 0); // First even
+        assert (list.last(number -> number % 2 == 0) == 8); // Last even
+        assert (list.single(number -> {
+            boolean isGreaterThanZero = number > 0;
+            boolean isDivisibleByTwo = number % 2 == 0;
+            boolean isDivisibleByThree = number % 3 == 0;
+
+            // Only 6 should be divisible by two and three.
+            return isGreaterThanZero && isDivisibleByTwo && isDivisibleByThree;
+        }) == 6);
+    }
+
+
+    @Test
+    public void ofType() {
+        QList<Object> list = new QList<Object>("One", 2, "Three", 4, "Five", 6);
+
+        // Get items of a particular type.
+        QIterable<String> strings = list.ofType(String.class);
+
+        // Should only have three items
+        assert (strings.count() == 3);
+
+        for (String string : strings) {
+            assert (string instanceof String);
+        }
+    }
+
+    class Base { }
+    class Derived extends Base { }
+
+    @Test
+    public void cast() {
+        // Create a list of base classes
+        QList<Base> bases = new QList<Base>(new Derived(){}, new Derived(){});
+
+        // Cast the base classes to derived
+        QIterable<Derived> deriveds = bases.cast(Derived.class);
+
+        // Verify
+        for (Derived item : deriveds) {
+            assert (item instanceof Derived);
+        }
+    }
 }

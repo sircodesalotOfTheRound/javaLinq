@@ -156,3 +156,89 @@ public void flatten() {
 ```
     
 Flatten can also be used with a lambda that points to the property to flatten on.
+
+### Count
+
+Count can be used to count the number of items in a set.
+
+```Java
+    public void count() {
+        QList<Integer> list = new QList<Integer>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+        // Count the number of items in the set
+        assert (list.count() == 10);
+        
+        // Count the number of items with a predicate (here: odds)
+        assert (list.count(item -> item % 2 == 0) == 5);
+    }
+```    
+
+### First, Last, Single
+
+Find the first, last and single items:
+
+```Java
+    public void sequence() {
+        QList<Integer> list = new QList<Integer>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+
+        // Find the first and last items
+        assert (list.first() == 0);
+        assert (list.last() == 9);
+
+        // Find items with predicate
+        assert (list.first(number -> number % 2 == 0) == 0); // First even
+        assert (list.last(number -> number % 2 == 0) == 8); // Last even
+        assert (list.single(number -> {
+            boolean isGreaterThanZero = number > 0;
+            boolean isDivisibleByTwo = number % 2 == 0;
+            boolean isDivisibleByThree = number % 3 == 0;
+
+            // Only 6 should be divisible by two and three.
+            return isGreaterThanZero && isDivisibleByTwo && isDivisibleByThree;
+        }) == 6);
+    }
+```
+
+Note that single enforces that only a single matching item exists (Exception if more than one item exists).
+
+### OfType
+
+Find items that descend from a particular class or interface:
+
+```Java
+    public void ofType() {
+        QList<Object> list = new QList<Object>("One", 2, "Three", 4, "Five", 6);
+
+        // Get items of a particular type.
+        QIterable<String> strings = list.ofType(String.class);
+       
+        // Should only have three items
+        assert (strings.count() == 3);
+        
+        for (int index = 0; index < strings.count();  index++) {
+            assert (strings.get(index) instanceof String);
+        }
+    }
+```
+
+### Cast
+
+Cast items in a set to a an interface or class:
+
+```Java
+
+    class Base { }
+    class Derived extends Base { }
+    
+    public void cast() {
+        // Create a list of base classes
+        QList<Base> bases = new QList<Base>(new Derived(){}, new Derived(){});   
+
+        // Cast the base classes to derived
+        QIterable<Derived> deriveds = bases.cast(Derived.class);
+        
+        // Verify
+        for (Derived item : deriveds) {
+            assert (item instanceof Derived);
+        }
+    }```
