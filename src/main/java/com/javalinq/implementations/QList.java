@@ -1,6 +1,7 @@
 package com.javalinq.implementations;
 
 
+
 import com.javalinq.interfaces.QIterable;
 
 import java.util.ArrayList;

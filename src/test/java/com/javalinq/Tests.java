@@ -1,9 +1,10 @@
-package test;
+package com.javalinq;
 
 import com.javalinq.implementations.QList;
 import com.javalinq.implementations.QSet;
 import com.javalinq.interfaces.QIterable;
 import com.javalinq.tools.Partition;
+
 import org.junit.Test;
 
 import java.util.Iterator;

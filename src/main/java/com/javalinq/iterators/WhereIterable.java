@@ -1,5 +1,6 @@
 package com.javalinq.iterators;
 
+
 import com.javalinq.interfaces.QIterable;
 
 import java.util.Iterator;

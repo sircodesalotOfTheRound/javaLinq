@@ -1,5 +1,6 @@
 package com.javalinq.interfaces;
 
+
 import com.javalinq.exceptions.QueryException;
 import com.javalinq.implementations.QList;
 import com.javalinq.implementations.QSet;
