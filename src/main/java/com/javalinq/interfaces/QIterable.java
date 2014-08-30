@@ -8,6 +8,7 @@ import com.javalinq.iterators.MapIterable;
 import com.javalinq.iterators.WhereIterable;
 import com.javalinq.tools.Partition;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,7 +16,7 @@ import java.util.function.Predicate;
 /**
  * Created by sircodesalot on 14-5-30.
  */
-public interface QIterable<T> extends Iterable<T> {
+public interface QIterable<T> extends Iterable<T>, Serializable {
     default public T get(int index) {
         Iterator<T> iterator = this.iterator();
         for (int count = 0; count < index; count++) {
