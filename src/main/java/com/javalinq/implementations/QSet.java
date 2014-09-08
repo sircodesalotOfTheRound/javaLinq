@@ -16,7 +16,9 @@ public class QSet<T> implements QIterable<T> {
     }
 
     public QSet(T ... items) {
-        for (T item : items) this.add(item);
+        if (items != null) {
+            for (T item : items) this.add(item);
+        }
     }
 
     public QSet(Iterable<T> iterable) {
