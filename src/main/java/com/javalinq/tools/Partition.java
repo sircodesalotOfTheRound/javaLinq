@@ -12,54 +12,54 @@ import java.util.function.Function;
  * Created by sircodesalot on 14-5-30.
  */
 public class Partition<U, T> implements QIterable<QIterable<T>> {
-    public Map<U, QList<T>> map = new HashMap<>();
+  public Map<U, QList<T>> map = new HashMap<>();
 
-    public Partition(QIterable<T> iterable, Function<T, U> onProperty) {
-        for (T item : iterable) {
-            U propertyValue = onProperty.apply(item);
-            QList<T> listForKey = getListForKey(propertyValue);
+  public Partition(QIterable<T> iterable, Function<T, U> onProperty) {
+    for (T item : iterable) {
+      U propertyValue = onProperty.apply(item);
+      QList<T> listForKey = getListForKey(propertyValue);
 
-            listForKey.add(item);
-        }
+      listForKey.add(item);
+    }
+  }
+
+  public QList<T> getListForKey(U key) {
+    if (map.containsKey(key)) {
+      return map.get(key);
     }
 
-    public QList<T> getListForKey(U key) {
-        if (map.containsKey(key)) {
-            return map.get(key);
-        }
+    QList<T> newListForKey = new QList<>();
+    map.put(key, newListForKey);
 
-        QList<T> newListForKey = new QList<>();
-        map.put(key, newListForKey);
+    return newListForKey;
+  }
 
-        return newListForKey;
-    }
+  public QIterable<T> flatten() {
+    return this.flatten(entry -> entry);
+  }
 
-    public QIterable<T> flatten() {
-        return this.flatten(entry -> entry);
-    }
+  public T containsKey(U key) {
+    return this.containsKey(key);
+  }
 
-    public T containsKey(U key) {
-        return this.containsKey(key);
-    }
+  public QIterable<T> get(U key) {
+    return this.map.get(key);
+  }
 
-    public QIterable<T> get(U key) {
-        return this.map.get(key);
-    }
+  @Override
+  public Iterator<QIterable<T>> iterator() {
+    final Iterator<U> keyIterator = map.keySet().iterator();
 
-    @Override
-    public Iterator<QIterable<T>> iterator() {
-        final Iterator<U> keyIterator = map.keySet().iterator();
+    return new Iterator<QIterable<T>>() {
+      @Override
+      public boolean hasNext() {
+        return (keyIterator.hasNext());
+      }
 
-        return new Iterator<QIterable<T>>() {
-            @Override
-            public boolean hasNext() {
-                return (keyIterator.hasNext());
-            }
-
-            @Override
-            public QIterable<T> next() {
-                return get(keyIterator.next());
-            }
-        };
-    }
+      @Override
+      public QIterable<T> next() {
+        return get(keyIterator.next());
+      }
+    };
+  }
 }
