@@ -38,8 +38,8 @@ public class Partition<U, T> implements QIterable<QIterable<T>> {
     return this.flatten(entry -> entry);
   }
 
-  public T containsKey(U key) {
-    return this.containsKey(key);
+  public boolean containsKey(U key) {
+    return map.containsKey(key);
   }
 
   public QIterable<T> get(U key) {
