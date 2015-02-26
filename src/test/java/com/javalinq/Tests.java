@@ -253,6 +253,13 @@ public class Tests {
   }
 
   @Test
+  public void testSecond() {
+    QIterable<Integer> items = new QList<>(1, 2, 3, 4, 5);
+    assert(items.second() == 2);
+    assert(items.second(item -> item % 2 == 0) == 4);
+  }
+
+  @Test
   public void changeContainer() {
     QIterable<Object> numbers = new QList<Object>(0, "One", 2, "Three", 4, "Five", 6);
 

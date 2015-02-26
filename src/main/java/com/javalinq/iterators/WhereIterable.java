@@ -26,6 +26,7 @@ public class WhereIterable<T> implements QIterable<T> {
   public class WhereIterator<T> implements Iterator<T> {
     private final Iterator<T> iterator;
     private final Predicate<T> predicate;
+    private boolean hasUpdated = false;
     private T nextItem;
 
     private WhereIterator(Iterable<T> iterable, Predicate<T> predicate) {
@@ -35,6 +36,7 @@ public class WhereIterable<T> implements QIterable<T> {
 
     @Override
     public boolean hasNext() {
+      hasUpdated = true;
       while (this.iterator.hasNext()) {
         this.nextItem = iterator.next();
         if (predicate.test(nextItem)) return true;
@@ -46,6 +48,11 @@ public class WhereIterable<T> implements QIterable<T> {
 
     @Override
     public T next() {
+      if (!hasUpdated) {
+        this.hasNext();
+      }
+
+      hasUpdated = false;
       return nextItem;
     }
   }
