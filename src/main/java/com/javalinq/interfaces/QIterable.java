@@ -55,6 +55,18 @@ public interface QIterable<T> extends Iterable<T>, Serializable {
     throw new QueryException("Sequence contains no items");
   }
 
+  default public T second() {
+    return this.get(1);
+  }
+
+  default public T second(Predicate<T> predicate) {
+    return this.where(predicate).second();
+  }
+
+  default public <U> U secondAs(Class<U> type) {
+    return (U)this.get(1);
+  }
+
   default public <U> U firstAs(Class<U> type) {
     return (U) this.first();
   }
