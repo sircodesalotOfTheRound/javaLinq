@@ -1,12 +1,16 @@
 package com.javalinq;
 
 import com.javalinq.implementations.QList;
+import com.javalinq.implementations.QMap;
 import com.javalinq.implementations.QSet;
 import com.javalinq.interfaces.QIterable;
+import com.javalinq.tools.KeyValuePair;
 import com.javalinq.tools.Partition;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 public class Tests {
   @Test
@@ -316,6 +320,31 @@ public class Tests {
     assert (iterable.get(4) == 4);
   }
 
+  @Test
+  public void testIterableMap() {
+    Map<Integer, String> hashMap = new HashMap<>();
+    QMap<Integer, String> iterableMap = new QMap<>();
+    hashMap.put(1, "first");
+    hashMap.put(2, "second");
+    hashMap.put(3, "third");
+    hashMap.put(4, "fourth");
+    hashMap.put(5, "fifth");
+    hashMap.put(6, "sixth");
+    hashMap.put(7, "seventh");
+    hashMap.put(8, "eighth");
+    hashMap.put(9, "ninth");
+    hashMap.put(10, "tenth");
+    hashMap.put(11, "eleventh");
+    hashMap.put(12, "twelfth");
+
+    for (Integer key : hashMap.keySet()) {
+      assert(iterableMap.add(key, hashMap.get(key)));
+    }
+
+    for (KeyValuePair<Integer, String> item : iterableMap) {
+      assert (item.value().equals(hashMap.get(item.key())));
+    }
+  }
   @Test
   public void testReduce() {
     QIterable<Integer> numbers = new QList<Integer>(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
