@@ -39,8 +39,15 @@ public interface QIterable<T> extends Iterable<T>, Serializable {
   }
 
   default public QIterable<T> distinct() {
-    QSet<T> seenItems = new QSet<>();
-    return this.where(item -> seenItems.add(item));
+    QIterable<T> self = this;
+    return new QIterable<T>() {
+      QSet<T> seenItems = new QSet<>();
+
+      @Override
+      public Iterator<T> iterator() {
+        return self.where(seenItems::add).iterator();
+      }
+    };
   }
 
   default public <U> QIterable<T> distinct(Function<T, U> onProperty) {

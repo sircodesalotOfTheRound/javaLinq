@@ -20,10 +20,10 @@ public class WhereIterable<T> implements QIterable<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return new WhereIterator<T>(iterable, predicate);
+    return new WhereIterator(iterable, predicate);
   }
 
-  public class WhereIterator<T> implements Iterator<T> {
+  public class WhereIterator implements Iterator<T> {
     private final Iterator<T> iterator;
     private final Predicate<T> predicate;
     private boolean hasUpdated = false;

@@ -321,6 +321,15 @@ public class Tests {
   }
 
   @Test
+  public void testDoubleDistinct() {
+    // Verify that calling distinct twice returns the same value;
+    QList<Integer> numbers = new QList<>(1, 2, 3, 4, 5, 5, 6, 6, 6, 7);
+
+    assert (numbers.distinct().count() == 7);
+    assert (numbers.distinct().count() == 7);
+  }
+
+  @Test
   public void testIterableMap() {
     Map<Integer, String> hashMap = new HashMap<>();
     QMap<Integer, String> iterableMap = new QMap<>();
