@@ -77,6 +77,24 @@ public class QMap<T, U> implements QIterable<KeyValuePair<T, U>> {
     }
   }
 
+  public void remove(T key) {
+    int hash = hash(key);
+    Link current, previous = null;
+    for (current = (Link)items[hash]; current != null; current = current.next) {
+      if (current.key.equals(key)) {
+        break;
+      }
+      previous = current;
+    }
+
+    // If the head was the item we needed to delete.
+    if (previous == null) {
+      items[hash] = current.next;
+    } else {
+      previous = current.next;
+    }
+  }
+
   public U get(T key) {
     Link item = find(key);
     if (item == null) {

@@ -88,6 +88,19 @@ public class Tests {
     assert (sortedNumbers.get(9) == 9);
   }
 
+
+  @Test
+  public void testQMapRemoval() {
+    QMap<Integer, String> items = new QMap<>();
+    items.add(1, "Something");
+    items.add(2, "Otherthing");
+
+    assert(items.containsKey(2));
+
+    items.remove(2);
+    assert(!items.containsKey(2));
+  }
+
   @Test
   public void parition() {
     QList<Integer> list = new QList<Integer>(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
